@@ -1,2 +1,2 @@
-# DolgogyAdventure
-DolgogyAdventure by.baekNothing
+# DolgojiAdventure
+DolgojiAdventure by.baekNothing
