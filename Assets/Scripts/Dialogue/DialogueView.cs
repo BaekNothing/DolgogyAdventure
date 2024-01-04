@@ -5,13 +5,17 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
+#pragma warning disable IDE0044 // ignore warning about private readonly field
+
 namespace UISystem
 {
     public class DialogueView : ViewBase
     {
+        [SerializeField] DialogueData _dialogueData;
+
         [SerializeField] UIComponent _dialogueText;
         [SerializeField] UIComponent _dialogueButton;
-        [SerializeField] DialogueData _viewData;
+
         [SerializeField] TypewriteController _typewriteController;
 
         protected override void Initialized()
@@ -23,7 +27,7 @@ namespace UISystem
         void SetDialogueText()
         {
             UIComponent.UIComponentInitData _dialogueTextInitData = new(
-                typeof(TextMeshProUGUI), _viewData,
+                typeof(TextMeshProUGUI), _dialogueData,
                 ComponentUtility.EvaluatorImmutable,
                 DrawDialogueText
             );
@@ -41,7 +45,7 @@ namespace UISystem
         void SetDialogueButton()
         {
             UIComponent.UIComponentInitData _dialogueButtonInitData = new(
-                typeof(Image), _viewData,
+                typeof(Image), _dialogueData,
                 ComponentUtility.EvaluatorImmutable,
                 ComponentUtility.DrawImmutable
             );
@@ -59,7 +63,7 @@ namespace UISystem
             }
             else
             {
-                _viewData.SetIndex(Random.Range(0, _viewData.DialogueLength));
+                _dialogueData.SetIndex(Random.Range(0, _dialogueData.DialogueLength));
                 _typewriteController.StartWriter();
             }
         }
