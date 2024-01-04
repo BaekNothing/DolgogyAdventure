@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -168,18 +168,18 @@ MonoBehaviour:
   typewriterStartsAutomatically: 1
   animationLoop: 0
   timeScale: 0
-  _text: 
+  _text: "\uAC00\uB098\uB2E4\uB77C\uB9C8\uBC14\uC0AC"
   useDynamicScaling: 1
   referenceFontSize: 10
   isResettingTimeOnNewText: 1
   useDefaultDatabases: 1
-  databaseBehaviors: {fileID: 0}
-  databaseAppearances: {fileID: 0}
+  databaseBehaviors: {fileID: 11400000, guid: 6f8a3f4972c026f4da02af85eeebbd98, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: d1cfa3609628c0a4780869d2152729cb, type: 2}
   useDefaultStyleSheet: 1
   styleSheet: {fileID: 0}
-  databaseActions: {fileID: 0}
+  databaseActions: {fileID: 11400000, guid: 8e092d663e0de0d47b95af391d339c90, type: 2}
   defaultAppearancesTags:
-  - size
+  - fade
   defaultDisappearancesTags:
   - fade
   defaultBehaviorsTags: []
@@ -197,9 +197,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTypeWriter: 1
-  startTypewriterMode: 0
-  hideAppearancesOnSkip: 1
-  hideDisappearancesOnSkip: 1
+  startTypewriterMode: -1
+  hideAppearancesOnSkip: 0
+  hideDisappearancesOnSkip: 0
   triggerEventsOnSkip: 0
   resetTypingSpeedAtStartup: 1
   disappearanceOrientation: 1
@@ -218,12 +218,12 @@ MonoBehaviour:
   onMessage:
     m_PersistentCalls:
       m_Calls: []
-  waitForNormalChars: 0.03
+  waitForNormalChars: 0.02
   waitLong: 0.6
   waitMiddle: 0.2
   avoidMultiplePunctuactionWait: 0
   waitForNewLines: 0
-  waitForLastCharacter: 0
+  waitForLastCharacter: 1
   useTypewriterWaitForDisappearances: 1
   disappearanceWaitTime: 0.015
   disappearanceSpeedMultiplier: 1.5
@@ -321,6 +321,9 @@ MonoBehaviour:
   _dialogueText: {fileID: 1621191787457140733}
   _dialogueButton: {fileID: 1276828040074971645}
   _viewData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
+  _typewriteController:
+    Typewriter: {fileID: 6382970533913469394}
+    TextAnimator: {fileID: 4674116237003490528}
 --- !u!1 &3600269591349673455
 GameObject:
   m_ObjectHideFlags: 0
