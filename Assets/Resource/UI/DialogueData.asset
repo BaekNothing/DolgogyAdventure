@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7cbc0dfaafa9fc46aa94e7fd7172ef6, type: 3}
+  m_Name: DialogueData
+  m_EditorClassIdentifier: 
+  DialogueTexts:
+  - the first rule of fight club is you do not talk about fight club
+  - the second rule of fight club is you do not talk about fight club
+  - the third rule of fight club is when someone says stop or goes limp, the fight
+    is over
+  - the fourth rule of fight club is only two guys to a fight
+  - the fifth rule of fight club is one fight at a time, fellas
+  - the sixth rule of fight club is no shirts, no shoes
+  - the seventh rule of fight club is fights will go on as long as they have to
+  - the eighth and final rule of fight club is if this is your first night at fight
+    club, you have to fight
