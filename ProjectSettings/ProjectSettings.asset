@@ -783,7 +783,11 @@ PlayerSettings:
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: TMP_PRESENT;USE_PHYSICS2D
+    Standalone: TMP_PRESENT;USE_PHYSICS2D
+    WebGL: TMP_PRESENT;USE_PHYSICS2D
+    iPhone: TMP_PRESENT;USE_PHYSICS2D
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

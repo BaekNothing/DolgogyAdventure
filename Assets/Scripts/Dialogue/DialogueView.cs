@@ -13,6 +13,7 @@ namespace UISystem
     {
         [SerializeField] DialogueData _dialogueData;
 
+        [SerializeField] UIComponent _dialoguePanel;
         [SerializeField] UIComponent _dialogueText;
         [SerializeField] UIComponent _dialogueButton;
 
@@ -20,8 +21,36 @@ namespace UISystem
 
         protected override void Initialized()
         {
+            SetDialoguePanel();
             SetDialogueText();
             SetDialogueButton();
+        }
+
+        void SetDialoguePanel()
+        {
+            UIComponent.UIComponentInitData _dialoguePanelInitData = new(
+                typeof(Image), _dialogueData,
+                EvaluateDialoguePanel,
+                ComponentUtility.DrawWithStatusOnly
+            );
+
+            InitComponent(_dialoguePanel, _dialoguePanelInitData);
+        }
+
+        ComponentStatus EvaluateDialoguePanel(IViewData data, ComponentStatus status)
+        {
+            if (data == null)
+                throw new System.ArgumentNullException($"{this.gameObject.name} ViewBase.InitComponent: component is null");
+
+            if (data is DialogueData dialogueData)
+            {
+                if (dialogueData.IsDialogueEnd)
+                    return ComponentStatus.Disable;
+                else
+                    return ComponentStatus.Enable;
+            }
+            else
+                throw new System.ArgumentException($"{this.gameObject.name} ViewBase.InitComponent: data is not DialogueData");
         }
 
         void SetDialogueText()
@@ -63,8 +92,9 @@ namespace UISystem
             }
             else
             {
-                _dialogueData.SetIndex(Random.Range(0, _dialogueData.DialogueLength));
-                _typewriteController.StartWriter();
+                _dialogueData.Next();
+                if (!_dialogueData.IsDialogueEnd)
+                    _typewriteController.StartWriter();
             }
         }
     }

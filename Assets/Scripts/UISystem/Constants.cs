@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,10 +12,6 @@ namespace UISystem
     {
         Enable,
         Disable,
-    }
-
-    public interface IViewData
-    {
     }
 
     public static class ComponentUtility

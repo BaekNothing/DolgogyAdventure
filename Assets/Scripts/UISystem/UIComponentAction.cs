@@ -9,7 +9,7 @@ namespace UISystem
     [Serializable]
     public class UIComponentAction : ISerializationCallbackReceiver
     {
-        public SortedList<string, Action> Actions { get; private set; } = new ();
+        public SortedList<string, Action> Actions { get; private set; } = new();
         public string ActionsNames;
 
         public void Invoke()
@@ -43,14 +43,25 @@ namespace UISystem
                 Actions.Add(typeName, action);
         }
 
+        public void RemoveAction<T>(Action action) where T : class
+        {
+            Debug.Assert(action != null);
+            Debug.Assert(Actions != null);
+
+            string typeName = typeof(T).Name;
+
+            if (Actions.ContainsKey(typeName))
+                Actions[typeName] -= action;
+        }
+
         public void OnBeforeSerialize()
         {
             ActionsNames = string.Join("\n", Actions.Select(x => x.Key + " : " + x.Value.Method.Name));
         }
 
-        public void OnAfterDeserialize() 
+        public void OnAfterDeserialize()
         {
-            
+
         }
     }
 }

@@ -8,8 +8,6 @@ using Febucci.UI;
 public class TypewriteController
 {
     [SerializeField] private TypewriterByCharacter Typewriter;
-    [SerializeField] private TextAnimator_TMP TextAnimator;
-
     public bool IsTyping => Typewriter.isShowingText;
 
     public void StartWriter()

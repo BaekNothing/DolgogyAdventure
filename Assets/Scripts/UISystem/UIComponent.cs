@@ -57,6 +57,10 @@ namespace UISystem
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (!CoreSystem.DataContainor.IsInitialized) //= Game is not Ready
+                throw new NullReferenceException
+                    ($"{this.gameObject.name} UIComponent.OnPointerClick: DataContainor is not initialized");
+
             if (Action == null)
                 throw new NullReferenceException($"{this.gameObject.name} UIComponent.OnPointerClick: Action is null");
 
@@ -64,7 +68,6 @@ namespace UISystem
             Debug.Log($"{this.gameObject.name} UIComponent.OnPointerClick: {eventData.pointerCurrentRaycast.gameObject.name}");
 #endif
             Action.Invoke();
-            UIManager.Refresh();
         }
 
         public void Initialized(UIComponentInitData initData)
@@ -89,6 +92,13 @@ namespace UISystem
         public void SetData(IViewData data)
         {
             Debug.Assert(data != null);
+
+            if (ViewData != null && ViewData != data)
+                ViewData.RemoveRefreshAction<UIComponent>(Refresh);
+            else if (ViewData == data)
+                return;
+
+            data.AddRefreshAction<UIComponent>(Refresh);
             ViewData = data;
         }
 

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7cbc0dfaafa9fc46aa94e7fd7172ef6, type: 3}
   m_Name: DialogueData
   m_EditorClassIdentifier: 
-  DialogueTexts:
+  _dialogueIndex: 8
+  _dialogueTexts:
   - the first rule of fight club is you do not talk about fight club
   - the second rule of fight club is you do not talk about fight club
   - the third rule of fight club is when someone says stop or goes limp, the fight
