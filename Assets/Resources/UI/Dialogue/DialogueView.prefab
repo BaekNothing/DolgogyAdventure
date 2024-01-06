@@ -239,8 +239,9 @@ GameObject:
   - component: {fileID: 7561228972462750938}
   - component: {fileID: 1172965855816068179}
   - component: {fileID: 7157949250325506610}
+  - component: {fileID: 7353704592126567543}
   m_Layer: 5
-  m_Name: DialoguePanel
+  m_Name: DialogueView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -317,13 +318,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442eed421be1c0e48b841443df18618f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsInitialized: 0
+  _dialogueData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
+  _dialoguePanel: {fileID: 7353704592126567543}
   _dialogueText: {fileID: 1621191787457140733}
   _dialogueButton: {fileID: 1276828040074971645}
-  _viewData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
   _typewriteController:
     Typewriter: {fileID: 6382970533913469394}
-    TextAnimator: {fileID: 4674116237003490528}
+--- !u!114 &7353704592126567543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715966771575733615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc0440b25049e448a05815f282fa141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Status: 0
+  ComponentBody: {fileID: 0}
+  Action:
+    ActionsNames: 
 --- !u!1 &3600269591349673455
 GameObject:
   m_ObjectHideFlags: 0

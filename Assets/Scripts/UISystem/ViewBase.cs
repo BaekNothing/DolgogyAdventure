@@ -6,10 +6,14 @@ namespace UISystem
 {
     public abstract class ViewBase : MonoBehaviour
     {
+        public const string TargetCanvasName = "UICanvas";
+
         public void Awake()
         {
             Initialized();
         }
+
+        public bool IsPaused { get; private set; } = false;
 
         protected abstract void Initialized();
 
@@ -21,14 +25,24 @@ namespace UISystem
             component.Initialized(data);
         }
 
-        public void TurnOff()
+        public virtual void OnEnter()
+        {
+            this.gameObject.SetActive(true);
+        }
+
+        public virtual void OnExit()
         {
             this.gameObject.SetActive(false);
         }
 
-        public void TurnOn()
+        public virtual void OnPause()
         {
-            this.gameObject.SetActive(true);
+            IsPaused = true;
+        }
+
+        public virtual void OnResume()
+        {
+            IsPaused = false;
         }
     }
 }
