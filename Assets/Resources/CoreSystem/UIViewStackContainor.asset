@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a100b7b7b5fcffd45940c0b78a7a2756, type: 3}
-  m_Name: UIViewManager
+  m_Script: {fileID: 11500000, guid: b49eb787c67f26446be5e9bfe223f461, type: 3}
+  m_Name: UIViewStackContainor
   m_EditorClassIdentifier: 
-  ViewStackName: RootMenuView

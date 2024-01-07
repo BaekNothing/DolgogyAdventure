@@ -2,21 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UISystem;
 
-namespace UISystem
+namespace CoreSystem
 {
-    [CreateAssetMenu(fileName = "UIViewManager", menuName = "ScriptableObjects/UIViewManager", order = 1)]
-    public class UIViewManager : ScriptableObject, ISerializationCallbackReceiver
+    public interface IUIViewStackContainor
+    {
+        public static void ShowView<T>() where T : ViewBase { }
+        public static void HideView<T>() where T : ViewBase { }
+    }
+
+    [CreateAssetMenu(fileName = "UIViewStackContainor", menuName = "ScriptableObjects/UIViewStackContainor", order = 1)]
+    public class UIViewStackContainor : ScriptableObject, ISerializationCallbackReceiver, IUIViewStackContainor
     {
         static readonly List<ViewBase> _viewStack = new();
         public string ViewStackName;
 
-        public void Initialize()
+        public void Initialized()
         {
             _viewStack.Clear();
-            Utility.Logger.Log($"UIViewManager.Initialize");
             ShowView<RootMenuView>();
-            Utility.Logger.Log($"Call ShowView<RootMenuView>");
         }
 
         public static void ShowView<T>() where T : ViewBase
@@ -75,12 +80,12 @@ namespace UISystem
         static T LoadView<T>() where T : ViewBase
         {
             Utility.Logger.Log($"LoadView Start", Utility.Logger.Importance.Warning);
-            var prefab = CoreSystem.CoreSystem.UIContainor.GetUIPrefab(typeof(T).Name) ??
+            var prefab = SystemRoot.UIContainor.GetUIPrefab(typeof(T).Name) ??
                 throw new System.NullReferenceException($"View {typeof(T).Name} not found");
 
             Utility.Logger.Log($"LoadView: {prefab.name}", Utility.Logger.Importance.Warning);
 
-            var targetCanvas = CoreSystem.CoreSystem.UIContainor.GetUICanvas() ??
+            var targetCanvas = SystemRoot.UIContainor.GetUICanvas() ??
                 throw new System.NullReferenceException($"Canvas not found");
 
             Utility.Logger.Log($"Canvas: {targetCanvas.name}");

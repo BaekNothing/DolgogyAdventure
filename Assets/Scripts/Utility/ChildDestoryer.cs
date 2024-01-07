@@ -14,7 +14,8 @@ namespace Utility
             get
             {
                 CashedDestoryers ??= FindObjectsOfType<ChildDestoryer>();
-                return InitedDestoryerCount == CashedDestoryers.Length;
+                Logger.Log($"ChildDestoryer.IsAllDestoryerInited: {InitedDestoryerCount} / {CashedDestoryers.Length}");
+                return InitedDestoryerCount >= CashedDestoryers.Length;
             }
         }
 
@@ -31,8 +32,9 @@ namespace Utility
             // 역순으로 제거해야 오류가 안남
             for (int i = childCount - 1; i >= 0; i--)
             {
-                Destroy(this.transform.GetChild(i).gameObject);
-                while (this.transform.childCount > i)
+                var child = this.transform.GetChild(i);
+                Destroy(child.gameObject);
+                while (child)
                     await UniTask.Yield();
             }
 

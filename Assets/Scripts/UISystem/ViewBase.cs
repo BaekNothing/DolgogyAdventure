@@ -8,7 +8,7 @@ namespace UISystem
     {
         public const string TargetCanvasName = "UICanvas";
 
-        public void Awake()
+        public void Start()
         {
             Initialized();
         }

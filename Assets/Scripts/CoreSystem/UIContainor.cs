@@ -19,7 +19,6 @@ namespace CoreSystem
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        [SerializeField] UISystem.UIViewManager _viewManager;
         Dictionary<string, GameObject> _uiPrefabs = new();
         public string[] UIName;
         const string _uiPath = "UI";
@@ -50,7 +49,6 @@ namespace CoreSystem
                 }
             }
 
-            _viewManager.Initialize();
             IsInitialized = true;
         }
 
