@@ -37,8 +37,7 @@ public class DialogueView : ViewBase
 
     UIBehaviour DrawDialogueText(UIBehaviour body, IViewData data, ComponentStatus status)
     {
-        if (!(body as TextMeshProUGUI).text.Contains(((DialogueData)data).CurrentDialogueText))
-            (body as TextMeshProUGUI).text = ((DialogueData)data).CurrentDialogueText;
+        ((TextMeshProUGUI)body).text = ((DialogueData)data).CurrentDialogueText;
         return body;
     }
 
