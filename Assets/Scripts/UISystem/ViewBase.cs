@@ -25,6 +25,17 @@ namespace UIObject
             component.Initialized(data);
         }
 
+        public bool IsTop()
+        {
+            Debug.Assert(this.transform.parent != null, $"{this.gameObject.name} ViewBase.IsTop: parent is null");
+            return this.transform.GetSiblingIndex() == this.transform.parent.childCount - 1;
+        }
+
+        public void SetTop()
+        {
+            this.transform.SetAsLastSibling();
+        }
+
         public virtual void OnEnter()
         {
             this.gameObject.SetActive(true);

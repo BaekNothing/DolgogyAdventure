@@ -18,9 +18,9 @@ namespace UIObject
             public IViewData data;
             public Func<IViewData, ComponentStatus, ComponentStatus> evaluator;
             public Func<UIBehaviour, IViewData, ComponentStatus, UIBehaviour> draw;
+            public ViewBase parent;
 
-            public UIComponentInitData(Type type, IViewData data, Func<IViewData, ComponentStatus, ComponentStatus> evaluator,
-                Func<UIBehaviour, IViewData, ComponentStatus, UIBehaviour> draw)
+            public UIComponentInitData(Type type, IViewData data, Func<IViewData, ComponentStatus, ComponentStatus> evaluator, Func<UIBehaviour, IViewData, ComponentStatus, UIBehaviour> draw, ViewBase parent)
             {
                 if (type != typeof(TextMeshProUGUI) && type != typeof(Text) &&
                     type != typeof(Image) && type != typeof(Button))
@@ -33,8 +33,11 @@ namespace UIObject
                 this.data = data;
                 this.evaluator = evaluator;
                 this.draw = draw;
+                this.parent = parent;
             }
         }
+
+        ViewBase _parent = null;
 
         public ComponentStatus Status = ComponentStatus.Enable;
         [SerializeField] UIBehaviour ComponentBody;
@@ -56,17 +59,14 @@ namespace UIObject
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (!CoreSystem.DataContainor.IsInitialized) //= Game is not Ready
-                throw new NullReferenceException
-                    ($"{this.gameObject.name} UIComponent.OnPointerClick: DataContainor is not initialized");
-
-            if (Action == null)
-                throw new NullReferenceException($"{this.gameObject.name} UIComponent.OnPointerClick: Action is null");
+            if (_parent?.IsTop() == false)
+                return;
 
 #if UNITY_EDITOR
             Debug.Log($"{this.gameObject.name} UIComponent.OnPointerClick: {eventData.pointerCurrentRaycast.gameObject.name}");
 #endif
-            Action.Invoke();
+
+            Action?.Invoke();
         }
 
         public void Initialized(UIComponentInitData initData)

@@ -17,8 +17,6 @@ namespace CoreSystem
     [CreateAssetMenu(fileName = "UIContainor", menuName = "ScriptableObjects/UIContainor", order = 1)]
     public class UIContainor : ScriptableObject, ISerializationCallbackReceiver, IUIContainor
     {
-        public static bool IsInitialized { get; private set; } = false;
-
         Dictionary<string, GameObject> _uiPrefabs = new();
         public string[] UIName;
         const string _uiPath = "UI";
@@ -26,9 +24,6 @@ namespace CoreSystem
 
         public void Initialized()
         {
-            if (IsInitialized)
-                return;
-
             var DirInfo = new DirectoryInfo($"{Application.dataPath}/Resources/{_uiPath}") ??
                 throw new NullReferenceException($"UIContainor.Initialized: {_uiPath} not found");
 
@@ -48,8 +43,6 @@ namespace CoreSystem
                     _uiPrefabs.Add(uiName, uiPrefab);
                 }
             }
-
-            IsInitialized = true;
         }
 
         GameObject[] LoadAllUIPrefabs(string dirPath)

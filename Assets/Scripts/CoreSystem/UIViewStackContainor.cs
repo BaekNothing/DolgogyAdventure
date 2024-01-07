@@ -8,8 +8,8 @@ namespace CoreSystem
 {
     public interface IUIViewStackContainor
     {
-        public static void ShowView<T>() where T : ViewBase { }
-        public static void HideView<T>() where T : ViewBase { }
+        public void ShowView<T>() where T : ViewBase { }
+        public void HideView<T>() where T : ViewBase { }
     }
 
     [CreateAssetMenu(fileName = "UIViewStackContainor", menuName = "ScriptableObjects/UIViewStackContainor", order = 1)]
@@ -24,7 +24,7 @@ namespace CoreSystem
             ShowView<RootMenuView>();
         }
 
-        public static void ShowView<T>() where T : ViewBase
+        public void ShowView<T>() where T : ViewBase
         {
             var view = GetView<T>();
             if (view == null)
@@ -46,7 +46,7 @@ namespace CoreSystem
             PushView(view);
         }
 
-        public static void HideView<T>() where T : ViewBase
+        public void HideView<T>() where T : ViewBase
         {
             var view = GetView<T>();
             if (view == null)
@@ -109,6 +109,7 @@ namespace CoreSystem
             }
 
             _viewStack.Add(view);
+            view.SetTop();
             view.OnEnter();
         }
 

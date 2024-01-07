@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4674116237003490528}
   - component: {fileID: 6382970533913469394}
   m_Layer: 5
-  m_Name: Text
+  m_Name: DialogueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 9164497906953435306}
   - component: {fileID: 1276828040074971645}
   m_Layer: 5
-  m_Name: Button
+  m_Name: DialogueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

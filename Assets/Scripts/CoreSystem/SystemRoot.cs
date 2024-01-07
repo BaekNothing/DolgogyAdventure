@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
+#pragma warning disable IDE0044 // ignore warning about private readonly field
 
 namespace CoreSystem
 {
@@ -15,6 +16,8 @@ namespace CoreSystem
         static DataContainor _dataContainor;
         static UIContainor _uiContainor;
         static UIViewStackContainor _uiViewStackContainor;
+
+        public static bool IsInitialized { get; private set; } = false;
 
 #if UNITY_EDITOR
         public ScriptableObject[] Containors;
@@ -35,6 +38,8 @@ namespace CoreSystem
             _dataContainor.Initialized();
             _uiContainor.Initialized();
             _uiViewStackContainor.Initialized();
+
+            IsInitialized = true;
         }
 
         void LoadAllContainor()

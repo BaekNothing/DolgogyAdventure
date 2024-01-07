@@ -257,6 +257,7 @@ MonoBehaviour:
   Containors:
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &180980629
 Transform:
   m_ObjectHideFlags: 0
@@ -463,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4418258597123788798, guid: 480aeb17bb92d2e4db347252b400d4e8, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4418258597123788798, guid: 480aeb17bb92d2e4db347252b400d4e8, type: 3}
       propertyPath: m_AnchorMin.x
@@ -479,7 +480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4418258597123788798, guid: 480aeb17bb92d2e4db347252b400d4e8, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 244.16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4418258597123788798, guid: 480aeb17bb92d2e4db347252b400d4e8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -515,7 +516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4418258597123788798, guid: 480aeb17bb92d2e4db347252b400d4e8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 122.08
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4418258597123788798, guid: 480aeb17bb92d2e4db347252b400d4e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

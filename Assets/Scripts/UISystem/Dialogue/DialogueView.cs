@@ -27,10 +27,13 @@ public class DialogueView : ViewBase
 
     void SetDialoguePanel()
     {
-        UIComponent.UIComponentInitData _dialoguePanelInitData = new(
+
+        UIComponent.UIComponentInitData _dialoguePanelInitData =
+        new(
             typeof(Image), _dialogueData,
             EvaluateDialoguePanel,
-            ComponentUtility.DrawWithStatusOnly
+            ComponentUtility.DrawWithStatusOnly,
+            this
         );
 
         InitComponent(_dialoguePanel, _dialoguePanelInitData);
@@ -57,7 +60,8 @@ public class DialogueView : ViewBase
         UIComponent.UIComponentInitData _dialogueTextInitData = new(
             typeof(TextMeshProUGUI), _dialogueData,
             ComponentUtility.EvaluatorImmutable,
-            DrawDialogueText
+            DrawDialogueText,
+            this
         );
 
         InitComponent(_dialogueText, _dialogueTextInitData);
@@ -75,7 +79,8 @@ public class DialogueView : ViewBase
         UIComponent.UIComponentInitData _dialogueButtonInitData = new(
             typeof(Image), _dialogueData,
             ComponentUtility.EvaluatorImmutable,
-            ComponentUtility.DrawImmutable
+            ComponentUtility.DrawImmutable,
+            this
         );
 
         InitComponent(_dialogueButton, _dialogueButtonInitData);
