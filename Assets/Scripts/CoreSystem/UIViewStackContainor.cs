@@ -12,24 +12,22 @@ namespace CoreSystem
         public void Focus<T>() where T : ViewBase;
     }
 
-    [CreateAssetMenu(fileName = "UIViewStackContainor", menuName = "ScriptableObjects/UIViewStackContainor", order = 1)]
-    public class UIViewStackContainor : ScriptableObject, ISerializationCallbackReceiver, IUIViewStackContainor
+    [Serializable]
+    public class UIViewStackContainor : IUIViewStackContainor
     {
-        [SerializeField] UIContainor _uiContainor;
-        public string FocusViewName;
-        static readonly List<ViewBase> _viewStack = new();
-        static readonly Dictionary<Type, ViewBase> _cashedView = new();
-        public string ViewStackName;
+        readonly UIPrefabContainor _uiContainor = new();
         const string _uiCanvasName = "UICanvas";
+
+        public List<ViewBase> _viewStack = new();
+        static readonly Dictionary<Type, ViewBase> _cashedView = new();
+
+        public string FocusViewName;
 
         public void Initialized()
         {
             _uiContainor.Initialized();
             _viewStack.Clear();
             _cashedView.Clear();
-
-            Focus<RootMenuView>();
-            //Focus<DialogueView>();
         }
 
         public void Focus<T>() where T : ViewBase
@@ -42,9 +40,10 @@ namespace CoreSystem
                 {
                     PopView();
                 }
-                view.OnEnter();
+
                 view.OnResume();
                 view.SetTop();
+                view.OnEnter();
             }
             else
             {
@@ -87,7 +86,7 @@ namespace CoreSystem
                 var targetCanvas = GetUICanvas() ??
                     throw new System.NullReferenceException($"Canvas not found");
 
-                var view = Instantiate(prefab, targetCanvas.transform).GetComponent<T>() ??
+                var view = UnityEngine.Object.Instantiate(prefab, targetCanvas.transform).GetComponent<T>() ??
                     throw new System.NullReferenceException($"View {typeof(T).Name} not found");
 
                 view.Initialized();
@@ -105,7 +104,7 @@ namespace CoreSystem
         }
 
 
-        static void PushView(ViewBase view)
+        void PushView(ViewBase view)
         {
             if (_viewStack.Contains(view))
             {
@@ -123,7 +122,7 @@ namespace CoreSystem
             view.OnEnter();
         }
 
-        static void PopView()
+        void PopView()
         {
             if (_viewStack.Count == 0)
             {
@@ -142,7 +141,7 @@ namespace CoreSystem
             }
         }
 
-        static T PickView<T>() where T : ViewBase
+        T PickView<T>() where T : ViewBase
         {
             if (_viewStack.Count > 0)
             {
@@ -154,16 +153,5 @@ namespace CoreSystem
             }
             return null;
         }
-
-        public void OnBeforeSerialize()
-        {
-            ViewStackName = string.Join("\n", _viewStack.Select(x => x.GetType().Name));
-        }
-
-        public void OnAfterDeserialize()
-        {
-
-        }
-
     }
 }

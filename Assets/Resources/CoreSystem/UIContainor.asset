@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e34709dec4801e4c9c0a641bcb47986, type: 3}
+  m_Script: {fileID: 11500000, guid: 00975ee93b9755848a343ee516b925a5, type: 3}
   m_Name: UIContainor
   m_EditorClassIdentifier: 
-  _viewManager: {fileID: 11400000, guid: bf8cf2bb391a79746b68c2fbf569cfb6, type: 2}
-  UIName:
-  - DialogueView
-  - RootMenu
+  dummy_uiViewStackContainor: {fileID: 0}

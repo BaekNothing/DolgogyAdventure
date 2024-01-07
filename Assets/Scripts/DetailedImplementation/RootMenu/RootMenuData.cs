@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UIObject;
+using DataObject;
 
 [CreateAssetMenu(fileName = "RootMenuData", menuName = "ScriptableObjects/RootMenuData", order = 1)]
-public class RootMenuData : ViewData
+public class RootMenuData : AData
 {
     public override void Initialized()
     {

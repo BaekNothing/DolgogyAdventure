@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UIObject;
+using DataObject;
 
 [CreateAssetMenu(fileName = "DialogueData", menuName = "ScriptableObjects/DialogueData", order = 1)]
-public class DialogueData : ViewData
+public class DialogueData : AData
 {
     [SerializeField] int _dialogueIndex = 0;
     public int DialogueIndex { get => _dialogueIndex; private set => _dialogueIndex = value; }
@@ -52,8 +52,8 @@ public class DialogueData : ViewData
 
     public void SetDialogueTexts(string[] texts)
     {
+        CoreSystem.SystemRoot.UI.Focus<DialogueView>();
         SetValue(texts, nameof(DialogueTexts));
-        CoreSystem.SystemRoot.UIViewStackContainor.Focus<DialogueView>();
         SetIndex(0);
     }
 }

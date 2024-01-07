@@ -4,17 +4,14 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace UIObject
+namespace DataObject
 {
-
-    public interface IViewData
+    public interface IData
     {
-        public UIComponentAction RefreshActions { get; }
-        public void AddRefreshAction<T>(Action action) where T : class;
-        public void RemoveRefreshAction<T>(Action action) where T : class;
+        public void SetValue<T>(T value, string targetName);
     }
 
-    public abstract class ViewData : ScriptableObject, IViewData
+    public abstract class AData : ScriptableObject, IData, UIObject.IViewData
     {
         public abstract void Initialized();
 

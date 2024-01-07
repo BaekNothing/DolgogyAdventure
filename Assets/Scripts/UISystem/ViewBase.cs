@@ -14,6 +14,7 @@ namespace UIObject
         // }
 
         public bool IsPaused { get; private set; } = false;
+        public bool IsInitialized { get; private set; } = false;
 
         public abstract void Initialized();
 
