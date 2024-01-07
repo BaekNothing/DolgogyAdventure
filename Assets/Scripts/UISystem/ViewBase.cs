@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UISystem
+namespace UIObject
 {
     public abstract class ViewBase : MonoBehaviour
     {

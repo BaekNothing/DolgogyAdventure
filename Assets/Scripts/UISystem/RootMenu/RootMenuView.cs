@@ -4,16 +4,14 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UIObject;
 
 #pragma warning disable IDE0044 // ignore warning about private readonly field
 
-namespace UISystem
+public class RootMenuView : ViewBase
 {
-    public class RootMenuView : ViewBase
+    protected override void Initialized()
     {
-        protected override void Initialized()
-        {
-            Utility.Logger.Log($"{this.gameObject.name} RootMenuView.Initialized");
-        }
+        Utility.Logger.Log($"{this.gameObject.name} RootMenuView.Initialized");
     }
 }

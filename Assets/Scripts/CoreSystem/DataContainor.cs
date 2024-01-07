@@ -4,7 +4,7 @@ namespace CoreSystem
 {
     public interface IDataContainor
     {
-        UISystem.DialogueData DialogueData { get; }
+        DialogueData DialogueData { get; }
     }
 
     [CreateAssetMenu(fileName = "DataContainor", menuName = "ScriptableObjects/DataContainor", order = 1)]
@@ -12,8 +12,8 @@ namespace CoreSystem
     {
         public static bool IsInitialized { get; private set; } = false;
 
-        [SerializeField] UISystem.DialogueData _dialogueData;
-        public UISystem.DialogueData DialogueData { get => _dialogueData; }
+        [SerializeField] DialogueData _dialogueData;
+        public DialogueData DialogueData { get => _dialogueData; }
 
         public void Initialized()
         {

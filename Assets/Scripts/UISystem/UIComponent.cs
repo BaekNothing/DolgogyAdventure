@@ -5,10 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UISystem;
 using TMPro;
 
-namespace UISystem
+namespace UIObject
 {
 
     public class UIComponent : MonoBehaviour, IPointerClickHandler, IEventSystemHandler

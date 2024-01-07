@@ -55,7 +55,7 @@ namespace CoreSystem
         GameObject[] LoadAllUIPrefabs(string dirPath)
         {
             var uiPrefabs = Resources.LoadAll<GameObject>($"{_uiPath}/{dirPath}");
-            uiPrefabs = Array.FindAll(uiPrefabs, uiPrefab => uiPrefab.GetComponent<UISystem.ViewBase>() != null);
+            uiPrefabs = Array.FindAll(uiPrefabs, uiPrefab => uiPrefab.GetComponent<UIObject.ViewBase>() != null);
             return uiPrefabs;
         }
 

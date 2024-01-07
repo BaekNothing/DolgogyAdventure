@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UISystem
+namespace UIObject
 {
     public enum ComponentStatus
     {
