@@ -29,12 +29,14 @@ public class DialogueData : AData
 
     public override void Initialized()
     {
-        SetIndex(0);
+
     }
 
     public void Next()
     {
         SetIndex(DialogueIndex + 1);
+        if (IsDialogueEnd)
+            CoreSystem.SystemRoot.UI.Pop<DialogueView>();
     }
 
     public void Previous()

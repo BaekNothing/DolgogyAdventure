@@ -8,7 +8,7 @@ namespace UIObject
 {
     public interface IViewData
     {
-        public UIComponentAction RefreshActions { get; }
+        public ComponentAction RefreshActions { get; }
         public void AddRefreshAction<T>(Action action) where T : class;
         public void RemoveRefreshAction<T>(Action action) where T : class;
     }

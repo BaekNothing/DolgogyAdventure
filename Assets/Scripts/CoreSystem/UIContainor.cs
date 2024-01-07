@@ -25,5 +25,15 @@ namespace CoreSystem
         {
             _uiViewStackContainor.Focus<T>();
         }
+
+        public void Pop<T>() where T : ViewBase
+        {
+            _uiViewStackContainor.Pop<T>();
+        }
+
+        public ViewBase Pick()
+        {
+            return _uiViewStackContainor.Pick();
+        }
     }
 }

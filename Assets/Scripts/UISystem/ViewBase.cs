@@ -8,11 +8,6 @@ namespace UIObject
     {
         public const string TargetCanvasName = "UICanvas";
 
-        // public void Start()
-        // {
-        //     Initialized();
-        // }
-
         public bool IsPaused { get; private set; } = false;
         public bool IsInitialized { get; private set; } = false;
 
@@ -28,8 +23,7 @@ namespace UIObject
 
         public bool IsTop()
         {
-            Debug.Assert(this.transform.parent != null, $"{this.gameObject.name} ViewBase.IsTop: parent is null");
-            return this.transform.GetSiblingIndex() == this.transform.parent.childCount - 1;
+            return CoreSystem.SystemRoot.UI.Pick() == this;
         }
 
         public void SetTop()

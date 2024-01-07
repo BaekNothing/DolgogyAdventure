@@ -15,12 +15,11 @@ namespace DataObject
     {
         public abstract void Initialized();
 
-        public UIComponentAction RefreshActions { get; } = new();
+        public ComponentAction RefreshActions { get; } = new();
         public void AddRefreshAction<T>(Action action) where T : class
         {
             if (action == null)
                 throw new ArgumentNullException($"ViewBase.InitComponent: component is null");
-
 
             RefreshActions.SetAction<T>(action);
         }
@@ -29,7 +28,6 @@ namespace DataObject
         {
             if (action == null)
                 throw new ArgumentNullException($"ViewBase.InitComponent: component is null");
-
 
             RefreshActions.RemoveAction<T>(action);
         }

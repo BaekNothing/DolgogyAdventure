@@ -46,10 +46,12 @@ namespace UIObject
             throw new NotImplementedException("Evaluator is not implemented");
         public Func<UIBehaviour, IViewData, ComponentStatus, UIBehaviour> Draw { get; set; } = (body, data, status) =>
             throw new NotImplementedException($"Draw is not implemented");
-        [SerializeField] UIComponentAction Action = new();
+        [SerializeField] ComponentAction Action = new();
 
         public void Refresh()
         {
+            if (!this) return;
+
             if (ComponentBody == null || ViewData == null || Evaluator == null || Draw == null)
                 throw new NullReferenceException($"{this.gameObject.name} UIComponent.Refresh: component is not initialized");
 
@@ -59,12 +61,12 @@ namespace UIObject
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (_parent?.IsTop() == false)
+            if (_parent == null ||
+                !_parent.IsTop() ||
+                _parent.IsPaused)
                 return;
 
-#if UNITY_EDITOR
-            Debug.Log($"{this.gameObject.name} UIComponent.OnPointerClick: {eventData.pointerCurrentRaycast.gameObject.name}");
-#endif
+            Utility.Logger.Log($"{_parent?.IsTop()} {gameObject.name} UIComponent.OnPointerClick: {eventData.button} button is clicked");
 
             Action?.Invoke();
         }
@@ -77,6 +79,7 @@ namespace UIObject
                 throw new NullReferenceException($"{this.gameObject.name} UIComponent.Init: body is null");
 
             SetBody(body);
+            _parent = initData.parent;
             SetData(initData.data);
             SetEvaluator(initData.evaluator);
             SetDraw(initData.draw);

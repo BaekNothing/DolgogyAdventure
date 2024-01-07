@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class UIComponentAction : ISerializationCallbackReceiver
+public class ComponentAction : ISerializationCallbackReceiver
 {
     public SortedList<string, Action> Actions { get; private set; } = new();
     public string ActionsNames;

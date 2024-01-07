@@ -84,7 +84,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC00\uB098\uB2E4\uB77C\uB9C8\uBC14\uC0AC"
+  m_text: "\uB367\uAE00\uC740 \uD1B5\uC2E0 \uC608\uC808 \uC9C0\uD0A4\uBA74\uC11C
+    \uD45C\uD604 \uC790\uC720 \uCD94\uAD6C\uD558\uB294 \uBC29\uD5A5\uC73C\uB85C \nThe
+    quick brown fox jumps over a(the) lazy dog\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bc76cb14bfdc3714a92d0a9d778a5264, type: 2}
   m_sharedMaterial: {fileID: -498712434695755319, guid: bc76cb14bfdc3714a92d0a9d778a5264, type: 2}
@@ -129,7 +131,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 4
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -239,7 +241,6 @@ GameObject:
   - component: {fileID: 7561228972462750938}
   - component: {fileID: 1172965855816068179}
   - component: {fileID: 7157949250325506610}
-  - component: {fileID: 7353704592126567543}
   m_Layer: 5
   m_Name: DialogueView
   m_TagString: Untagged
@@ -319,27 +320,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dialogueData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
-  _dialoguePanel: {fileID: 7353704592126567543}
+  _dialoguePanel: {fileID: 0}
   _dialogueText: {fileID: 1621191787457140733}
   _dialogueButton: {fileID: 1276828040074971645}
   _typewriteController:
     Typewriter: {fileID: 6382970533913469394}
---- !u!114 &7353704592126567543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2715966771575733615}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebc0440b25049e448a05815f282fa141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Status: 0
-  ComponentBody: {fileID: 0}
-  Action:
-    ActionsNames: 
 --- !u!1 &3600269591349673455
 GameObject:
   m_ObjectHideFlags: 0

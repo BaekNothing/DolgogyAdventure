@@ -10,6 +10,8 @@ namespace CoreSystem
     public interface IUIViewStackContainor
     {
         public void Focus<T>() where T : ViewBase;
+        public void Pop<T>() where T : ViewBase;
+        public ViewBase Pick();
     }
 
     [Serializable]
@@ -25,9 +27,9 @@ namespace CoreSystem
 
         public void Initialized()
         {
-            _uiContainor.Initialized();
             _viewStack.Clear();
             _cashedView.Clear();
+            _uiContainor.Initialized();
         }
 
         public void Focus<T>() where T : ViewBase
@@ -36,7 +38,7 @@ namespace CoreSystem
             var view = GetView<T>();
             if (view != null)
             {
-                while (PickView<T>() != view)
+                while (PickView() != view)
                 {
                     PopView();
                 }
@@ -57,6 +59,25 @@ namespace CoreSystem
             }
 
             FocusViewName = view.GetType().Name;
+        }
+
+        public void Pop<T>() where T : ViewBase
+        {
+            Utility.Logger.Log($"UIViewStackContainor.Pop: {typeof(T).Name}");
+            var topView = PickView();
+            if (topView != null && topView.GetType() == typeof(T))
+            {
+                PopView();
+            }
+            else
+            {
+                Debug.LogError($"View {typeof(T).Name} not found");
+            }
+        }
+
+        public ViewBase Pick()
+        {
+            return PickView();
         }
 
         T GetView<T>() where T : ViewBase
@@ -118,6 +139,7 @@ namespace CoreSystem
             }
 
             _viewStack.Add(view);
+            view.OnResume();
             view.SetTop();
             view.OnEnter();
         }
@@ -141,15 +163,11 @@ namespace CoreSystem
             }
         }
 
-        T PickView<T>() where T : ViewBase
+        ViewBase PickView()
         {
             if (_viewStack.Count > 0)
             {
-                var view = _viewStack.Find(v => v.GetType() == typeof(T));
-                if (view != null)
-                {
-                    return view as T;
-                }
+                return _viewStack[^1];
             }
             return null;
         }
