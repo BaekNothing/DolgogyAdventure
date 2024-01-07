@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49eb787c67f26446be5e9bfe223f461, type: 3}
   m_Name: UIViewStackContainor
   m_EditorClassIdentifier: 
+  _uiContainor: {fileID: 11400000, guid: 346d72e6bb88dc342820b0353ef65eac, type: 2}
+  FocusViewName: 
+  ViewStackName: 

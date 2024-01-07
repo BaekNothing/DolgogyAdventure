@@ -8,14 +8,14 @@ namespace UIObject
     {
         public const string TargetCanvasName = "UICanvas";
 
-        public void Start()
-        {
-            Initialized();
-        }
+        // public void Start()
+        // {
+        //     Initialized();
+        // }
 
         public bool IsPaused { get; private set; } = false;
 
-        protected abstract void Initialized();
+        public abstract void Initialized();
 
         protected void InitComponent(UIComponent component, UIComponent.UIComponentInitData data)
         {

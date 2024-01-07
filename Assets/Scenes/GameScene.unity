@@ -131,6 +131,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2017935478}
     m_Modifications:
+    - target: {fileID: 1208707597529265405, guid: 43221cb8aae7c624c82875598558b6ec, type: 3}
+      propertyPath: m_text
+      value: "\uB367\uAE00\uC740 \uD1B5\uC2E0 \uC608\uC808 \uC9C0\uD0A4\uBA74\uC11C
+        \uD45C\uD604 \uC790\uC720 \uCD94\uAD6C\uD558\uB294 \uBC29\uD5A5\uC73C\uB85C
+        \nThe quick brown fox jumps over a(the) lazy dog\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208707597529265405, guid: 43221cb8aae7c624c82875598558b6ec, type: 3}
+      propertyPath: m_overflowMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1208707597529265405, guid: 43221cb8aae7c624c82875598558b6ec, type: 3}
+      propertyPath: m_horizontalMapping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2715966771575733615, guid: 43221cb8aae7c624c82875598558b6ec, type: 3}
       propertyPath: m_Name
       value: DialogueView

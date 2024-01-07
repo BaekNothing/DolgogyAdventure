@@ -15,7 +15,7 @@ public class RootMenuView : ViewBase
     [SerializeField] UIComponent _rootMenuPanel;
     [SerializeField] UIComponent _debugButton;
 
-    protected override void Initialized()
+    public override void Initialized()
     {
         SetRootMenuPanel();
         SetDebugButton();
@@ -50,10 +50,12 @@ public class RootMenuView : ViewBase
 
         System.Action _debugButtonAction = () =>
         {
-            Utility.Logger.Log($"{this.gameObject.name} RootMenuView.SetDebugButton: debug button is clicked",
+            Utility.Logger.Log
+                ($"{this.gameObject.name} RootMenuView.SetDebugButton: debug button is clicked",
                 Utility.Logger.Importance.Warning);
+
             CoreSystem.SystemRoot.DataContainor.DialogueData.SetDialogueTexts(
-                new string[] { "Debug Button is Clicked" }
+                new string[] { $"Debug Button is Clicked {System.DateTime.Now}" }
             );
         };
 

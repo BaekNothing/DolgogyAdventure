@@ -10,11 +10,9 @@ namespace CoreSystem
     public class SystemRoot : MonoBehaviour, ISerializationCallbackReceiver
     {
         public static IDataContainor DataContainor { get => _dataContainor; }
-        public static IUIContainor UIContainor { get => _uiContainor; }
         public static IUIViewStackContainor UIViewStackContainor { get => _uiViewStackContainor; }
 
         static DataContainor _dataContainor;
-        static UIContainor _uiContainor;
         static UIViewStackContainor _uiViewStackContainor;
 
         public static bool IsInitialized { get; private set; } = false;
@@ -36,7 +34,6 @@ namespace CoreSystem
             LoadAllContainor();
 
             _dataContainor.Initialized();
-            _uiContainor.Initialized();
             _uiViewStackContainor.Initialized();
 
             IsInitialized = true;
@@ -51,13 +48,10 @@ namespace CoreSystem
             {
                 if (containor is DataContainor dataContainor)
                     _dataContainor = dataContainor;
-                else if (containor is UIContainor uiContainor)
-                    _uiContainor = uiContainor;
                 else if (containor is UIViewStackContainor uiViewStackContainor)
                     _uiViewStackContainor = uiViewStackContainor;
                 else
-                    throw new System.NotImplementedException
-                        ($"CoreSystem.LoadAllContainor: {containor.name} is not implemented");
+                    continue;
             }
         }
 
@@ -67,7 +61,6 @@ namespace CoreSystem
             Containors = new ScriptableObject[]
             {
                 _dataContainor,
-                _uiContainor,
                 _uiViewStackContainor
             };
 #endif

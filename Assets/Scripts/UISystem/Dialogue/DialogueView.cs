@@ -18,7 +18,7 @@ public class DialogueView : ViewBase
 
     [SerializeField] TypewriteController _typewriteController;
 
-    protected override void Initialized()
+    public override void Initialized()
     {
         SetDialoguePanel();
         SetDialogueText();

@@ -53,6 +53,7 @@ public class DialogueData : ViewData
     public void SetDialogueTexts(string[] texts)
     {
         SetValue(texts, nameof(DialogueTexts));
+        CoreSystem.SystemRoot.UIViewStackContainor.Focus<DialogueView>();
         SetIndex(0);
     }
 }

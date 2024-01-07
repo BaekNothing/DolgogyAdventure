@@ -11,7 +11,6 @@ namespace CoreSystem
     public interface IUIContainor
     {
         GameObject GetUIPrefab(string name);
-        GameObject GetUICanvas();
     }
 
     [CreateAssetMenu(fileName = "UIContainor", menuName = "ScriptableObjects/UIContainor", order = 1)]
@@ -20,7 +19,6 @@ namespace CoreSystem
         Dictionary<string, GameObject> _uiPrefabs = new();
         public string[] UIName;
         const string _uiPath = "UI";
-        const string _uiCanvasName = "UICanvas";
 
         public void Initialized()
         {
@@ -61,14 +59,6 @@ namespace CoreSystem
             }
 
             return _uiPrefabs[name];
-        }
-
-        public GameObject GetUICanvas()
-        {
-            var canvas = GameObject.FindWithTag(_uiCanvasName) ??
-                throw new NullReferenceException($"UIContainor.GetUICanvas: canvas {_uiCanvasName} not found");
-
-            return canvas;
         }
 
         public void OnBeforeSerialize()
