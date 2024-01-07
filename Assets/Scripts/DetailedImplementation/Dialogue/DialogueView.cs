@@ -10,7 +10,7 @@ using UIObject;
 
 public class DialogueView : ViewBase
 {
-    [SerializeField] DialogueViewData _DialogueViewData;
+    DialogueViewData DialogueViewData => CoreSystem.SystemRoot.Data.GetData<DialogueViewData>();
 
     [SerializeField] UIComponent _dialogueText;
     [SerializeField] UIComponent _dialogueButton;
@@ -26,7 +26,7 @@ public class DialogueView : ViewBase
     void SetDialogueText()
     {
         UIComponent.UIComponentInitData _dialogueTextInitData = new(
-            typeof(TextMeshProUGUI), _DialogueViewData,
+            typeof(TextMeshProUGUI), DialogueViewData,
             ComponentUtility.EvaluatorImmutable,
             DrawDialogueText,
             this
@@ -44,7 +44,7 @@ public class DialogueView : ViewBase
     void SetDialogueButton()
     {
         UIComponent.UIComponentInitData _dialogueButtonInitData = new(
-            typeof(Image), _DialogueViewData,
+            typeof(Image), DialogueViewData,
             ComponentUtility.EvaluatorImmutable,
             ComponentUtility.DrawImmutable,
             this
@@ -63,8 +63,8 @@ public class DialogueView : ViewBase
         }
         else
         {
-            _DialogueViewData.Next();
-            if (!_DialogueViewData.IsDialogueEnd)
+            DialogueViewData.Next();
+            if (!DialogueViewData.IsDialogueEnd)
                 _typewriteController.StartWriter();
         }
     }

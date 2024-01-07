@@ -10,7 +10,7 @@ using UIObject;
 
 public class RootMenuView : ViewBase
 {
-    [SerializeField] RootMenuData _rootMenuData;
+    RootMenuData RootMenuData => CoreSystem.SystemRoot.Data.GetData<RootMenuData>();
 
     [SerializeField] UIComponent _debugButton;
 
@@ -24,7 +24,7 @@ public class RootMenuView : ViewBase
     {
         UIComponent.UIComponentInitData _debugButtonInitData =
         new(
-            typeof(Button), _rootMenuData,
+            typeof(Button), RootMenuData,
             ComponentUtility.EvaluatorImmutable,
             ComponentUtility.DrawWithStatusOnly,
             this
@@ -38,7 +38,7 @@ public class RootMenuView : ViewBase
                 ($"{this.gameObject.name} RootMenuView.SetDebugButton: debug button is clicked",
                 Utility.Logger.Importance.Warning);
 
-            CoreSystem.SystemRoot.Data.DialogueViewData.SetDialogueTexts(
+            CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(
                 new string[] { $"Debug Button is Clicked {System.DateTime.Now}" }
             );
         }
