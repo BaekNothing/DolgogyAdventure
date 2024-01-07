@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f84cc591daf92e44b57643a24e72f6d, type: 3}
   m_Name: DataContainor
   m_EditorClassIdentifier: 
-  _dialogueData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
+  _DialogueViewData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}

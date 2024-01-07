@@ -38,7 +38,7 @@ public class RootMenuView : ViewBase
                 ($"{this.gameObject.name} RootMenuView.SetDebugButton: debug button is clicked",
                 Utility.Logger.Importance.Warning);
 
-            CoreSystem.SystemRoot.Data.DialogueData.SetDialogueTexts(
+            CoreSystem.SystemRoot.Data.DialogueViewData.SetDialogueTexts(
                 new string[] { $"Debug Button is Clicked {System.DateTime.Now}" }
             );
         }

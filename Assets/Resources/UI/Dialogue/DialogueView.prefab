@@ -319,8 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442eed421be1c0e48b841443df18618f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialogueData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
-  _dialoguePanel: {fileID: 0}
+  _DialogueViewData: {fileID: 11400000, guid: fd6dfba67d1173f4ca5556f6218e1f7f, type: 2}
   _dialogueText: {fileID: 1621191787457140733}
   _dialogueButton: {fileID: 1276828040074971645}
   _typewriteController:
