@@ -37,26 +37,28 @@ namespace UIObject
             }
         }
 
-        ViewBase _parent = null;
 
         public ComponentStatus Status = ComponentStatus.Enable;
         [SerializeField] UIBehaviour ComponentBody;
-        IViewData ViewData;
-        private Func<IViewData, ComponentStatus, ComponentStatus> Evaluator { get; set; } = (data, status) =>
-            throw new NotImplementedException("Evaluator is not implemented");
-        public Func<UIBehaviour, IViewData, ComponentStatus, UIBehaviour> Draw { get; set; } = (body, data, status) =>
-            throw new NotImplementedException($"Draw is not implemented");
         [SerializeField] ComponentAction Action = new();
+
+        IViewData _viewData;
+        ViewBase _parent = null;
+
+        Func<IViewData, ComponentStatus, ComponentStatus> Evaluator { get; set; } = (data, status) =>
+            throw new NotImplementedException("Evaluator is not implemented");
+        Func<UIBehaviour, IViewData, ComponentStatus, UIBehaviour> Draw { get; set; } = (body, data, status) =>
+            throw new NotImplementedException($"Draw is not implemented");
 
         public void Refresh()
         {
             if (!this) return;
 
-            if (ComponentBody == null || ViewData == null || Evaluator == null || Draw == null)
+            if (ComponentBody == null || _viewData == null || Evaluator == null || Draw == null)
                 throw new NullReferenceException($"{this.gameObject.name} UIComponent.Refresh: component is not initialized");
 
-            Status = Evaluator(ViewData, Status);
-            Draw(ComponentBody, ViewData, Status);
+            Status = Evaluator(_viewData, Status);
+            Draw(ComponentBody, _viewData, Status);
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -79,7 +81,7 @@ namespace UIObject
                 throw new NullReferenceException($"{this.gameObject.name} UIComponent.Init: body is null");
 
             SetBody(body);
-            _parent = initData.parent;
+            SetParent(initData.parent);
             SetData(initData.data);
             SetEvaluator(initData.evaluator);
             SetDraw(initData.draw);
@@ -91,17 +93,23 @@ namespace UIObject
             ComponentBody = body;
         }
 
+        public void SetParent(ViewBase parent)
+        {
+            Debug.Assert(parent != null);
+            _parent = parent;
+        }
+
         public void SetData(IViewData data)
         {
             Debug.Assert(data != null);
 
-            if (ViewData != null && ViewData != data)
-                ViewData.RemoveRefreshAction<UIComponent>(Refresh);
-            else if (ViewData == data)
+            if (_viewData != null && _viewData != data)
+                _viewData.RemoveRefreshAction<UIComponent>(Refresh);
+            else if (_viewData == data)
                 return;
 
             data.AddRefreshAction<UIComponent>(Refresh);
-            ViewData = data;
+            _viewData = data;
         }
 
         public void SetEvaluator(Func<IViewData, ComponentStatus, ComponentStatus> evaluator)

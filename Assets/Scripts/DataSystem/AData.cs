@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -32,14 +32,7 @@ namespace DataObject
             RefreshActions.RemoveAction<T>(action);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value"></param>
-        /// <param name="targetName"></param>
-        /// <exception cref="ArgumentException">  </exception>
-        public void SetValue<T>(T value, string targetName) //where T : IEquatable<T>
+        public void SetValue<T>(T value, string targetName)
         {
             var propertyInfo = GetPropertyInfo(targetName);
             var fieldInfo = GetFieldInfo(targetName);
