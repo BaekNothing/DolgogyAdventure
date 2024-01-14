@@ -9,7 +9,8 @@ using TMPro;
 
 namespace UIObject
 {
-
+    [DisallowMultipleComponent]
+    [RequireComponent(typeof(UIBehaviour))]
     public class UIComponent : MonoBehaviour, IPointerClickHandler, IEventSystemHandler
     {
         public struct UIComponentInitData
