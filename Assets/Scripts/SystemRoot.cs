@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,11 @@ namespace CoreSystem
     {
         public static IDataContainor Data { get => _dataContainor; }
         public static IUIContainor UI { get => _uiContainor; }
+        public static IInputContainor Input { get => _inputContainor; }
 
         static DataContainor _dataContainor;
         static UIContainor _uiContainor;
+        static InputContainor _inputContainor;
 
         public static bool IsInitialized { get; private set; } = false;
 
@@ -24,6 +27,15 @@ namespace CoreSystem
         private void Start()
         {
             InitAllContainor();
+        }
+
+        private void Update()
+        {
+            if (!IsInitialized) return;
+
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+                if (UnityEngine.Input.GetKey(keyCode))
+                    _inputContainor.Invoke(keyCode);
         }
 
         async void InitAllContainor()
@@ -50,6 +62,8 @@ namespace CoreSystem
                     _dataContainor = dataContainor;
                 else if (containor is UIContainor uIContainor)
                     _uiContainor = uIContainor;
+                else if (containor is InputContainor inputContainor)
+                    _inputContainor = inputContainor;
                 else
                     continue;
             }

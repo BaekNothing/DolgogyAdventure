@@ -31,18 +31,18 @@ public class RootMenuView : ViewBase
         );
 
         InitComponent(_debugButton, _debugButtonInitData);
-
-        void _debugButtonAction()
-        {
-            Utility.Logger.Log
-                ($"{this.gameObject.name} RootMenuView.SetDebugButton: debug button is clicked",
-                Utility.Logger.Importance.Warning);
-
-            CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(
-                new string[] { $"Debug Button is Clicked {System.DateTime.Now}" }
-            );
-        }
-
         _debugButton.SetAction<RootMenuView>(_debugButtonAction);
     }
+
+    void _debugButtonAction()
+    {
+        Utility.Logger.Log
+            ($"{this.gameObject.name} RootMenuView.SetDebugButton: debug button is clicked",
+            Utility.Logger.Importance.Warning);
+
+        CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(
+            new string[] { $"Debug Button is Clicked {System.DateTime.Now}" }
+        );
+    }
+
 }
