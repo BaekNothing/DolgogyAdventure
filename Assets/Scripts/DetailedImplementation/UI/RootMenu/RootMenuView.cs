@@ -10,7 +10,7 @@ using UIObject;
 
 public class RootMenuView : ViewBase
 {
-    RootMenuData RootMenuData => CoreSystem.SystemRoot.Data.GetData<RootMenuData>();
+    RootMenuViewData RootMenuData => CoreSystem.SystemRoot.Data.GetData<RootMenuViewData>();
 
     [SerializeField] UIComponent _debugButton;
 

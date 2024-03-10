@@ -11,6 +11,7 @@ namespace DataObject
         public void SetValue<T>(T value, string targetName);
     }
 
+    [Serializable]
     public abstract class AData : ScriptableObject, IData, UIObject.IViewData
     {
         public abstract void Initialized();

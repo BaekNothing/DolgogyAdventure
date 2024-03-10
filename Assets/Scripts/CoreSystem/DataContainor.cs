@@ -16,7 +16,11 @@ namespace CoreSystem
     [CreateAssetMenu(fileName = "DataContainor", menuName = "ScriptableObjects/DataContainor", order = 1)]
     public class DataContainor : ScriptableObject, IDataContainor
     {
-        readonly Dictionary<string, AData> _dataList = new();
+        readonly Dictionary<string, AData> _dataDict = new();
+#if UNITY_EDITOR
+        [SerializeField] List<AData> _dataInspectorShower = new();
+#endif
+
         const string _uiPath = "UI";
 
         public void Initialized()
@@ -29,7 +33,10 @@ namespace CoreSystem
             var DirInfo = new DirectoryInfo($"{Application.dataPath}/Resources/{_uiPath}") ??
                 throw new NullReferenceException($"UIContainor.Initialized: {_uiPath} not found");
 
-            _dataList.Clear();
+            _dataDict.Clear();
+#if UNITY_EDITOR
+            _dataInspectorShower.Clear();
+#endif
             var dirPaths = DirInfo.GetDirectories().Select(dir => dir.Name).ToArray();
             foreach (var dirPath in dirPaths)
             {
@@ -37,12 +44,15 @@ namespace CoreSystem
                 foreach (var dataObject in dataObjects)
                 {
                     var objName = dataObject.name;
-                    if (_dataList.ContainsKey(objName))
+                    if (_dataDict.ContainsKey(objName))
                     {
                         Debug.LogError($"UIContainor.Initialized: UI {objName} already exist");
                         continue;
                     }
-                    _dataList.Add(objName, dataObject);
+                    _dataDict.Add(objName, dataObject);
+#if UNITY_EDITOR
+                    _dataInspectorShower.Add(dataObject);
+#endif
                 }
             }
         }
@@ -61,9 +71,9 @@ namespace CoreSystem
         T Get<T>() where T : AData
         {
             var type = typeof(T);
-            if (_dataList.ContainsKey(type.Name))
+            if (_dataDict.ContainsKey(type.Name))
             {
-                return _dataList[type.Name] as T;
+                return _dataDict[type.Name] as T;
             }
             else
             {

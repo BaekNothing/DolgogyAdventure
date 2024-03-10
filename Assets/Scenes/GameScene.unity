@@ -295,8 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Containors:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 57eba2a059c69af43b8aa3c109444935, type: 2}
+  - {fileID: 11400000, guid: dda736b25aa9ac94bbbfa32cfe8eff2f, type: 2}
 --- !u!4 &180980629
 Transform:
   m_ObjectHideFlags: 0
@@ -1019,6 +1019,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3084312977218360424, guid: d25dee50d77a0bf4ba1686c875b54440, type: 3}
   m_PrefabInstance: {fileID: 4740369629845773691}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &1853156299 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1359003716176361866, guid: d25dee50d77a0bf4ba1686c875b54440, type: 3}
+  m_PrefabInstance: {fileID: 4740369629845773691}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2017935474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1188,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3735714659876484879, guid: d25dee50d77a0bf4ba1686c875b54440, type: 3}
+      propertyPath: _collider
+      value: 
+      objectReference: {fileID: 1853156299}
     - target: {fileID: 8003274282935563966, guid: d25dee50d77a0bf4ba1686c875b54440, type: 3}
       propertyPath: m_Name
       value: SampleDialogudObject

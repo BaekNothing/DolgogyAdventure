@@ -10,7 +10,7 @@ using UIObject;
 public class SampleDialogueObject : MonoBehaviour, IObject, IClickAble
 {
     [SerializeField] ObjectState State = ObjectState.Enable;
-    [SerializeField] List<string> DialogueList;
+    [SerializeField] string[] DialogueList;
     [SerializeField] Collider2D _collider;
     Collider2D Collider => _collider ??= GetComponent<Collider2D>();
 
@@ -32,7 +32,7 @@ public class SampleDialogueObject : MonoBehaviour, IObject, IClickAble
     public void OnMouseDown()
     {
         Debug.Log("click_Down");
-        if (DialogueList.Count == 0) return;
-        CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(DialogueList.ToArray());
+        if (DialogueList.Length == 0) return;
+        CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(DialogueList);
     }
 }

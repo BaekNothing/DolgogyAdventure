@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2085efae723931e4f91383ebaf5b29df, type: 3}
-  m_Name: RootMenuData
+  m_Script: {fileID: 11500000, guid: 3bd09e2f4ec78874dbadbcc7b7dd7c91, type: 3}
+  m_Name: RootMenuViewData
   m_EditorClassIdentifier: 
