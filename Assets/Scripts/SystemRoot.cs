@@ -47,8 +47,10 @@ namespace CoreSystem
 
             _dataContainor.Initialized();
             _uiContainor.Initialized();
+            _inputContainor.Initialized();
 
             IsInitialized = true;
+
         }
 
         void LoadAllContainor()

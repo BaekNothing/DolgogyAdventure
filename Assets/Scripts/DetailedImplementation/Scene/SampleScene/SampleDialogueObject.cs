@@ -1,35 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using ObjectSystem;
-using UIObject;
+using Cysharp.Threading.Tasks;
+using QFSW.QC;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D))]
-public class SampleDialogueObject : MonoBehaviour, IObject, IClickAble
+public class SampleDialogueObject : MonoBehaviour
 {
-    [SerializeField] ObjectState State = ObjectState.Enable;
     [SerializeField] string[] DialogueList;
-    [SerializeField] Collider2D _collider;
-    Collider2D Collider => _collider ??= GetComponent<Collider2D>();
+    ClickableComponent _clickableComponent;
 
-    public void Initialized()
+    public void Start()
     {
-
+        //Initialize();
     }
 
-    public void Draw()
+    [Command("player_Init")]
+    async void Initialize()
     {
+        await UniTask.WaitUntil(() => CoreSystem.SystemRoot.IsInitialized);
 
+        _clickableComponent = gameObject.AddComponent<ClickableComponent>();
+        _clickableComponent.SetAction(ClickAction);
     }
 
-    public ObjectState Evaluator()
-    {
-        return State;
-    }
-
-    public void OnMouseDown()
+    public void ClickAction()
     {
         Debug.Log("click_Down");
         if (DialogueList.Length == 0) return;

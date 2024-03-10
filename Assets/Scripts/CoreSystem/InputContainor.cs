@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using QFSW.QC;
 
 namespace CoreSystem
 {
@@ -41,6 +42,19 @@ namespace CoreSystem
 #if UNITY_EDITOR
         List<InputActionData> _dataInspectorShower = new();
 #endif
+
+        public void Initialized()
+        {
+            SetAction(KeyCode.BackQuote, () =>
+            {
+
+                if (QuantumConsole.Instance.IsActive)
+                    QuantumConsole.Instance.Deactivate();
+                else
+                    QuantumConsole.Instance.Activate();
+            });
+        }
+
         public void Invoke(KeyCode key)
         {
             if (_actionDatas.ContainsKey(key))
