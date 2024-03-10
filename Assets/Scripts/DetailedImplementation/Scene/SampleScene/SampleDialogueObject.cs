@@ -1,26 +1,16 @@
 ﻿using System;
 using UnityEngine;
 using ObjectSystem;
-using Cysharp.Threading.Tasks;
-using QFSW.QC;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D))]
-public class SampleDialogueObject : MonoBehaviour
+public class SampleDialogueObject : ASceneObjectBase
 {
     [SerializeField] string[] DialogueList;
     ClickableComponent _clickableComponent;
 
-    public void Start()
+    public override void Initialize()
     {
-        //Initialize();
-    }
-
-    [Command("player_Init")]
-    async void Initialize()
-    {
-        await UniTask.WaitUntil(() => CoreSystem.SystemRoot.IsInitialized);
-
         _clickableComponent = gameObject.AddComponent<ClickableComponent>();
         _clickableComponent.SetAction(ClickAction);
     }

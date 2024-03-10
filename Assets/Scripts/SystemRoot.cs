@@ -26,6 +26,7 @@ namespace CoreSystem
 
         private void Start()
         {
+            DontDestroyOnLoad(gameObject);
             InitAllContainor();
         }
 
