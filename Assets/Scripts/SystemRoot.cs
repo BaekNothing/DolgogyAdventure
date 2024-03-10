@@ -19,29 +19,42 @@ namespace CoreSystem
         static InputContainor _inputContainor;
 
         public static bool IsInitialized { get; private set; } = false;
+        static GameObject Instance = null;
 
 #if UNITY_EDITOR
         public ScriptableObject[] Containors;
 #endif
 
-        private void Start()
+        void Start()
         {
-            DontDestroyOnLoad(gameObject);
-            InitAllContainor();
+            if (!IsInitialized)
+            {
+                DontDestroyOnLoad(gameObject);
+                InitAllContainor();
+                Instance = gameObject;
+            }
+            else
+            {
+                DestroyImmediate(this);
+            }
         }
 
-        private void Update()
+        void Update()
         {
             if (!IsInitialized) return;
+            if (Instance != gameObject) return;
 
             foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (UnityEngine.Input.GetKeyDown(keyCode))
+                    _inputContainor?.Invoke(keyCode, IInputContainor.InputType.DownOnce);
                 if (UnityEngine.Input.GetKey(keyCode))
-                    _inputContainor.Invoke(keyCode);
+                    _inputContainor?.Invoke(keyCode, IInputContainor.InputType.Hold);
+            }
         }
 
-        async void InitAllContainor()
+        void InitAllContainor()
         {
-            await UniTask.WaitUntil(() => Utility.ChildDestoryer.IsAllDestoryerInited);
             Utility.Logger.Log($"CoreSystem.LoadAllContainor Start");
 
             LoadAllContainor();

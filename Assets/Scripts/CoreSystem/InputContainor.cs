@@ -32,20 +32,29 @@ namespace CoreSystem
 
     public interface IInputContainor
     {
-        public void SetAction(KeyCode key, Action action);
+        public enum InputType
+        {
+            Hold,
+            DownOnce
+        }
+
+        public void SetAction(InputType tytpe, KeyCode key, Action action);
     }
 
     [CreateAssetMenu(fileName = "InputContainor", menuName = "ScriptableObjects/InputContainor", order = 1)]
     public class InputContainor : ScriptableObject, IInputContainor
     {
-        Dictionary<KeyCode, InputActionData> _actionDatas = new();
-#if UNITY_EDITOR
-        List<InputActionData> _dataInspectorShower = new();
-#endif
+
+        readonly Dictionary<IInputContainor.InputType, Dictionary<KeyCode, InputActionData>> _actionDatas
+        = new()
+        {
+            {IInputContainor.InputType.Hold, new Dictionary<KeyCode, InputActionData>()},
+            {IInputContainor.InputType.DownOnce, new Dictionary<KeyCode, InputActionData>()},
+        };
 
         public void Initialized()
         {
-            SetAction(KeyCode.BackQuote, () =>
+            SetAction(IInputContainor.InputType.DownOnce, KeyCode.BackQuote, () =>
             {
 
                 if (QuantumConsole.Instance.IsActive)
@@ -55,18 +64,21 @@ namespace CoreSystem
             });
         }
 
-        public void Invoke(KeyCode key)
+        public void Invoke(KeyCode key, IInputContainor.InputType type)
         {
-            if (_actionDatas.ContainsKey(key))
-                _actionDatas[key].Invoke();
+            if (_actionDatas[type].ContainsKey(key))
+                _actionDatas[type][key].Invoke();
         }
 
-        public void SetAction(KeyCode key, Action action)
+        public void SetAction(IInputContainor.InputType type, KeyCode key, Action action)
         {
-            if (!_actionDatas.ContainsKey(key))
-                _actionDatas.Add(key, new InputActionData(key));
+            if (!_actionDatas[type].ContainsKey(key))
+            {
+                var actionData = new InputActionData(key);
+                _actionDatas[type].Add(key, actionData);
+            }
 
-            _actionDatas[key].SetAction(action);
+            _actionDatas[type][key].SetAction(action);
         }
     }
 }
