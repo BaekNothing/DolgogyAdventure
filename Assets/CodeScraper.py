@@ -2,6 +2,8 @@
 import sys
 
 # deep copy from https://github.com/Lee-WonJun/CodePaper/ (CodePaper)
+# python CodeScraper.py -e .cs -o ./output.md ./Scripts
+
 
 class CodeBlock:
     def __init__(self, file, lang, content):
