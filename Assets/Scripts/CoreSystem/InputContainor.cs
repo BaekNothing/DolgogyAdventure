@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using QFSW.QC;
 
@@ -10,23 +11,45 @@ namespace CoreSystem
     struct InputActionData
     {
         public KeyCode KeyCode;
-        public List<Action> actions;
+        public Dictionary<GameObject, Action> Actions;
 
         public InputActionData(KeyCode keyCode)
         {
             this.KeyCode = keyCode;
-            this.actions = new List<Action>();
+            this.Actions = new();
         }
 
-        public readonly void SetAction(Action action)
+        public readonly void SetAction(Action action, GameObject source)
         {
-            if (!actions.Contains(action))
-                actions.Add(action);
+            if (Actions.ContainsKey(source))
+            {
+                Actions[source] -= action;
+                Actions[source] += action;
+            }
+            else
+            {
+                Actions.Add(source, action);
+            }
         }
 
         public readonly void Invoke()
         {
-            actions.ForEach((action) => action?.Invoke());
+            foreach (var eachAction in Actions)
+            {
+                if (eachAction.Key)
+                {
+                    eachAction.Value?.Invoke();
+                }
+            }
+
+            Clear();
+        }
+
+        readonly void Clear()
+        {
+            var targets = Actions.Where((eachAction) => !eachAction.Key);
+            foreach (var target in targets)
+                Actions.Remove(target.Key);
         }
     }
 
@@ -38,7 +61,24 @@ namespace CoreSystem
             DownOnce
         }
 
-        public void SetAction(InputType tytpe, KeyCode key, Action action);
+        public struct SetInputActionData
+        {
+            public InputType type;
+            public KeyCode key;
+            public Action action;
+            public GameObject source;
+
+            public SetInputActionData
+                (InputType type, KeyCode key, Action action, GameObject source)
+            {
+                this.type = type;
+                this.key = key;
+                this.action = action;
+                this.source = source;
+            }
+        }
+
+        public void SetInputAction(SetInputActionData data);
     }
 
     [CreateAssetMenu(fileName = "InputContainor", menuName = "ScriptableObjects/InputContainor", order = 1)]
@@ -52,16 +92,19 @@ namespace CoreSystem
             {IInputContainor.InputType.DownOnce, new Dictionary<KeyCode, InputActionData>()},
         };
 
-        public void Initialized()
+        public void Initialized(GameObject systemRoot)
         {
-            SetAction(IInputContainor.InputType.DownOnce, KeyCode.BackQuote, () =>
-            {
+            SetInputAction(
+                new IInputContainor.SetInputActionData
+                (IInputContainor.InputType.DownOnce, KeyCode.BackQuote, () =>
+                {
 
-                if (QuantumConsole.Instance.IsActive)
-                    QuantumConsole.Instance.Deactivate();
-                else
-                    QuantumConsole.Instance.Activate();
-            });
+                    if (QuantumConsole.Instance.IsActive)
+                        QuantumConsole.Instance.Deactivate();
+                    else
+                        QuantumConsole.Instance.Activate();
+                }, systemRoot)
+            );
         }
 
         public void Invoke(KeyCode key, IInputContainor.InputType type)
@@ -70,15 +113,16 @@ namespace CoreSystem
                 _actionDatas[type][key].Invoke();
         }
 
-        public void SetAction(IInputContainor.InputType type, KeyCode key, Action action)
+
+        public void SetInputAction(IInputContainor.SetInputActionData data)
         {
-            if (!_actionDatas[type].ContainsKey(key))
+            if (!_actionDatas[data.type].ContainsKey(data.key))
             {
-                var actionData = new InputActionData(key);
-                _actionDatas[type].Add(key, actionData);
+                var actionData = new InputActionData(data.key);
+                _actionDatas[data.type].Add(data.key, actionData);
             }
 
-            _actionDatas[type][key].SetAction(action);
+            _actionDatas[data.type][data.key].SetAction(data.action, data.source);
         }
     }
 }

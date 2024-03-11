@@ -17,8 +17,10 @@ public class SampleDialogueObject : ASceneObjectBase
 
     public void ClickAction()
     {
-        Debug.Log("click_Down");
-        if (DialogueList.Length == 0) return;
-        CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(DialogueList);
+
+
+        // Debug.Log("click_Down");
+        // if (DialogueList.Length == 0) return;
+        // CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(DialogueList);
     }
 }

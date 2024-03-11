@@ -61,7 +61,7 @@ namespace CoreSystem
 
             _dataContainor.Initialized();
             _uiContainor.Initialized();
-            _inputContainor.Initialized();
+            _inputContainor.Initialized(gameObject);
 
             IsInitialized = true;
 
