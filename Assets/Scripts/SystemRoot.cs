@@ -8,7 +8,7 @@ using Cysharp.Threading.Tasks;
 
 namespace CoreSystem
 {
-    public class SystemRoot : MonoBehaviour, ISerializationCallbackReceiver
+    public class SystemRoot : MonoBehaviour
     {
         public static IDataContainor Data { get => _dataContainor; }
         public static IUIContainor UI { get => _uiContainor; }
@@ -83,21 +83,6 @@ namespace CoreSystem
                 else
                     continue;
             }
-        }
-
-        public void OnBeforeSerialize()
-        {
-#if UNITY_EDITOR
-            Containors = new ScriptableObject[]
-            {
-                _dataContainor,
-                _uiContainor
-            };
-#endif
-        }
-
-        public void OnAfterDeserialize()
-        {
         }
     }
 }
