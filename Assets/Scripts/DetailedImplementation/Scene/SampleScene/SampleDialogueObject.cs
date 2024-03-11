@@ -13,14 +13,24 @@ public class SampleDialogueObject : ASceneObjectBase
     {
         _clickableComponent = gameObject.AddComponent<ClickableComponent>();
         _clickableComponent.SetAction(ClickAction);
+
+        CoreSystem.SystemRoot.Input.SetInputAction(
+            new CoreSystem.IInputContainor.SetInputActionData(
+                CoreSystem.IInputContainor.InputType.DownOnce,
+                KeyCode.Escape,
+                () =>
+                {
+                    UnityEngine.SceneManagement.SceneManager
+                        .LoadScene(1, UnityEngine.SceneManagement.LoadSceneMode.Single);
+                }, this.gameObject
+            )
+        );
     }
 
     public void ClickAction()
     {
-
-
-        // Debug.Log("click_Down");
-        // if (DialogueList.Length == 0) return;
-        // CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(DialogueList);
+        Debug.Log("click_Down");
+        if (DialogueList.Length == 0) return;
+        CoreSystem.SystemRoot.Data.GetData<DialogueViewData>().SetDialogueTexts(DialogueList);
     }
 }

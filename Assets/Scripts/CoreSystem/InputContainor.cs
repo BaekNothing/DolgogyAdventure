@@ -47,9 +47,10 @@ namespace CoreSystem
 
         readonly void Clear()
         {
-            var targets = Actions.Where((eachAction) => !eachAction.Key);
+            var targets = Actions.Where((eachAction) => !eachAction.Key)
+                .Select((eachAction) => eachAction.Key).ToArray();
             foreach (var target in targets)
-                Actions.Remove(target.Key);
+                Actions.Remove(target);
         }
     }
 
@@ -92,19 +93,9 @@ namespace CoreSystem
             {IInputContainor.InputType.DownOnce, new Dictionary<KeyCode, InputActionData>()},
         };
 
-        public void Initialized(GameObject systemRoot)
+        public void Initialized()
         {
-            SetInputAction(
-                new IInputContainor.SetInputActionData
-                (IInputContainor.InputType.DownOnce, KeyCode.BackQuote, () =>
-                {
 
-                    if (QuantumConsole.Instance.IsActive)
-                        QuantumConsole.Instance.Deactivate();
-                    else
-                        QuantumConsole.Instance.Activate();
-                }, systemRoot)
-            );
         }
 
         public void Invoke(KeyCode key, IInputContainor.InputType type)

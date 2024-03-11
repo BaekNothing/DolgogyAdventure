@@ -35,7 +35,7 @@ namespace CoreSystem
             }
             else
             {
-                DestroyImmediate(this);
+                Destroy(gameObject);
             }
         }
 
@@ -61,7 +61,7 @@ namespace CoreSystem
 
             _dataContainor.Initialized();
             _uiContainor.Initialized();
-            _inputContainor.Initialized(gameObject);
+            _inputContainor.Initialized();
 
             IsInitialized = true;
 
