@@ -3,8 +3,31 @@ using UnityEngine;
 
 namespace Dolgoji.UIComponent
 {
+    public enum ComponentType
+    {
+        Preset,
+        Text,
+        Image
+    }
+
+    public enum Direction
+    {
+        Vertical,
+        Horizontal
+    }
+
+    public enum AnchorType
+    {
+        LeftTop,
+        RightTop,
+        LeftBottom,
+        RightBottom,
+        Center // Center
+    }
+
     public static class UIConsts
     {
+
         public const string UI_PREFAB_PATH = "UI/Prefabs/";
         public const string UI_RootCanvas = "UIRootCanvas";
         public const string UI_RootCamera = "UIRootCamera";

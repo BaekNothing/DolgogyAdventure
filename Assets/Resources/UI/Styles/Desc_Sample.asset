@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d085dba397229c649b724e1f666ed6a9, type: 3}
+  m_Name: Desc_Sample
+  m_EditorClassIdentifier: 
+  Font: {fileID: 12800000, guid: 40386a58cdd739e45bff72c818832a6d, type: 3}
+  FontSize: 20
+  FontColor: {r: 0, g: 0, b: 0, a: 0}
+  Alignment: 0
+  ComponentDirection: 0

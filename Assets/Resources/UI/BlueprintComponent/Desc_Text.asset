@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad9fa3d0014e33409854e5770f588ee, type: 3}
+  m_Name: Desc_Text
+  m_EditorClassIdentifier: 
+  Type: 1
+  Data: {fileID: 0}
+  Name: Desc_Sample
+  Source: Desc_Sample
+  TextStylePreset: {fileID: 11400000, guid: 920be534a6bc53e46bd0dabc4b425624, type: 2}
+  IsRaycastTarget: 0
+  Position: {x: 0, y: 0, z: 0}
+  Size: {x: 120, y: 80}
+  RectAnchorType: 2
