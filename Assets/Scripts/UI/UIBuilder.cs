@@ -7,109 +7,116 @@ namespace Dolgoji.UIComponent
 {
     public class UIBuilder
     {
+        static UIBlueprintOptions _options;
+        static UIBlueprintOptions Options
+        {
+            get
+            {
+                _options ??= Resources.Load<UIBlueprintOptions>("UIBlueprintOptions");
+                return _options;
+            }
+        }
 
-        static void SetBasicTransform(RectTransform target, UIBlueprintComponent component, Transform parent)
+
+        static void SetBasicTransform(RectTransform target, Vector2 size, Transform parent)
         {
             target.SetParent(parent);
-            target.localPosition = component.Position;
-            target.sizeDelta = component.Size;
-
-            switch (component.RectAnchorType)
-            {
-                case AnchorType.LeftTop:
-                    target.anchorMin = new Vector2(0, 1);
-                    target.anchorMax = new Vector2(0, 1);
-                    break;
-                case AnchorType.RightTop:
-                    target.anchorMin = new Vector2(1, 1);
-                    target.anchorMax = new Vector2(1, 1);
-                    break;
-                case AnchorType.LeftBottom:
-                    target.anchorMin = new Vector2(0, 0);
-                    target.anchorMax = new Vector2(0, 0);
-                    break;
-                case AnchorType.RightBottom:
-                    target.anchorMin = new Vector2(1, 0);
-                    target.anchorMax = new Vector2(1, 0);
-                    break;
-                case AnchorType.Center:
-                    target.anchorMin = new Vector2(0.5f, 0.5f);
-                    target.anchorMax = new Vector2(0.5f, 0.5f);
-                    break;
-            }
-
+            target.localPosition = Vector3.zero;
+            target.pivot = new Vector2(0.5f, 0.5f);
+            target.anchorMin = new Vector2(0.5f, 0.5f);
+            target.anchorMax = new Vector2(0.5f, 0.5f);
+            target.sizeDelta = size;
+            target.localScale = Vector2.one;
         }
 
         public static GameObject Build(string path, Transform parent)
         {
-            UIBlueprint blueprint = Resources.Load<UIBlueprint>(path);
+            UIBluetprint blueprint = Resources.Load<UIBluetprint>(path);
             if (blueprint == null)
             {
                 Debug.LogError("UIBlueprint is not found in Resources");
                 return null;
             }
 
-            GameObject uiObject = new(blueprint.name);
-            CreateComponent(blueprint.ComponentGroups, uiObject);
+            GameObject uiObject = new(blueprint.Name);
+            uiObject.transform.SetParent(parent);
+            RectTransform uiRect = uiObject.AddComponent<RectTransform>();
+            SetBasicTransform(uiRect, blueprint.ScrollInfo.Size, parent);
+            uiRect.localPosition = blueprint.ScrollInfo.Position;
+
+            ScrollRect scroll = MakeScrollRect(uiObject, blueprint.ScrollInfo);
+            SetComponents(scroll, blueprint.Components);
 
             return uiObject;
         }
 
-        static void CreateComponent(UIBlueprintGroups[] componentGroups, GameObject parent)
+        static ScrollRect MakeScrollRect(GameObject target, UIBluetprint.scrollInfo scrollInfo)
         {
-            foreach (UIBlueprintGroups group in componentGroups)
+            target.AddComponent<Image>().sprite = Options.BgImage?.sprite;
+            target.GetComponent<Image>().color = Options.backgroundColor;
+
+            ScrollRect scroll = target.AddComponent<ScrollRect>();
+            scroll.horizontal = scrollInfo.direction == UIBluetprint.scrollInfo.Direction.Horizontal;
+            scroll.vertical = scrollInfo.direction == UIBluetprint.scrollInfo.Direction.Vertical;
+
+            scroll.viewport = new GameObject("Viewport").AddComponent<RectTransform>();
+            SetBasicTransform(scroll.viewport, scrollInfo.Size - scrollInfo.Padding * 2, target.transform);
+
+            GameObject content = new("Content");
+            scroll.content = content.AddComponent<RectTransform>();
+            SetBasicTransform(scroll.content, scrollInfo.Size - scrollInfo.Padding * 2, scroll.viewport.transform);
+
+            content.AddComponent<ContentSizeFitter>();
+            HorizontalOrVerticalLayoutGroup LayoutGroup =
+            scroll.horizontal
+                ? content.AddComponent<HorizontalLayoutGroup>()
+                : content.AddComponent<VerticalLayoutGroup>();
+
+            LayoutGroup.spacing = Options.spacing;
+            LayoutGroup.padding = Options.pedding;
+            LayoutGroup.childControlHeight = false;
+            LayoutGroup.childControlWidth = false;
+            LayoutGroup.childForceExpandWidth = false;
+            LayoutGroup.childForceExpandHeight = false;
+
+            LayoutGroup.childAlignment =
+            scroll.horizontal
+                ? TextAnchor.MiddleCenter
+                : TextAnchor.UpperCenter;
+
+            return scroll;
+        }
+
+        static void SetComponents(ScrollRect scroll, UIBluetprint.componentInfo[] components)
+        {
+            foreach (UIBluetprint.componentInfo componentInfo in components)
             {
-                GameObject groupObject = new(group.Name);
-                groupObject.transform.SetParent(parent.transform);
-
-                foreach (UIBlueprintComponent component in group.Components)
-                {
-                    GameObject componentObject = new(component.Name);
-                    componentObject.transform.SetParent(groupObject.transform);
-
-                    switch (component.Type)
-                    {
-                        case ComponentType.Preset:
-                            break;
-                        case ComponentType.Text:
-                            CreateTextComponent(component, componentObject);
-                            break;
-                        case ComponentType.Image:
-                            CreateImageComponent(component, componentObject);
-                            break;
-                    }
-                }
+                GameObject component = MakeComponent(scroll.content.gameObject, componentInfo);
+                component.transform.SetParent(scroll.content.transform);
             }
         }
 
-        static void CreateTextComponent(UIBlueprintComponent component, GameObject parent)
+        static GameObject MakeComponent(GameObject target, UIBluetprint.componentInfo componentInfo)
         {
-            Text text = parent.AddComponent<Text>();
-            text.text = component.Source;
-            text.font = component.TextStylePreset.Font;
-            text.fontSize = component.TextStylePreset.FontSize;
-            text.color = component.TextStylePreset.FontColor;
-            text.alignment = component.TextStylePreset.Alignment;
-            text.resizeTextForBestFit = true;
-            text.resizeTextMaxSize = component.TextStylePreset.FontSize;
-            text.resizeTextMinSize = 4;
+            GameObject component = new(componentInfo.Name);
+            RectTransform componentRect = component.AddComponent<RectTransform>();
+            SetBasicTransform(componentRect, new Vector2(100, 100), target.transform);
 
-            text.raycastTarget = component.IsRaycastTarget;
+            switch (componentInfo.Type)
+            {
+                case UIBluetprint.componentInfo.ComponentType.Text:
+                    Text text = component.AddComponent<Text>();
+                    text.font = Options.font;
+                    text.color = Options.textColor;
+                    text.text = componentInfo.Path;
+                    break;
+                case UIBluetprint.componentInfo.ComponentType.Image:
+                    Image image = component.AddComponent<Image>();
+                    image.sprite = Resources.Load<Sprite>(componentInfo.Path);
+                    break;
+            }
 
-            RectTransform rectTransform = parent.GetComponent<RectTransform>();
-            SetBasicTransform(rectTransform, component, parent.transform);
-            rectTransform.anchoredPosition = component.Position;
-        }
-
-        static void CreateImageComponent(UIBlueprintComponent component, GameObject parent)
-        {
-            Image image = parent.AddComponent<Image>();
-            image.sprite = Resources.Load<Sprite>(component.Source);
-            image.raycastTarget = component.IsRaycastTarget;
-
-            RectTransform rectTransform = parent.GetComponent<RectTransform>();
-            SetBasicTransform(rectTransform, component, parent.transform);
-            rectTransform.anchoredPosition = component.Position;
+            return component;
         }
     }
 }
