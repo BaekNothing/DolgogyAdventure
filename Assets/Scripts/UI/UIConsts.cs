@@ -86,6 +86,7 @@ namespace Dolgoji.UI
             _uiRootCanvas = go.GetComponent<Canvas>();
             _uiRootCanvas.renderMode = RenderMode.ScreenSpaceCamera;
             _uiRootCanvas.worldCamera = UIRootCamera;
+            _uiRootCanvas.planeDistance = 0;
 
             CanvasScaler canvasScaler = go.GetComponent<CanvasScaler>();
             canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
