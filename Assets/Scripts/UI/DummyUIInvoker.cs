@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Dolgoji.UI;
 
-public class DummyUIInvoker : MonoBehaviour
+namespace Dolgoji.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class DummyUIInvoker : MonoBehaviour
     {
-        UIUtility.Show<BasicPopup>();
+        // Start is called before the first frame update
+        void Start()
+        {
+            UIUtility.Show<BasicPopup>();
+        }
     }
 }

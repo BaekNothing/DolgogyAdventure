@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0c4a7f76e2ffb4797a1591a8953a54, type: 3}
   m_Name: BasicPopupModel
   m_EditorClassIdentifier: 
+  _title: Title
+  _content: Contents test
