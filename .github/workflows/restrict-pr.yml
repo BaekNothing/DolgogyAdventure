@@ -1,0 +1,17 @@
+name: Restrict PR to Main from Develop
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, edited, reopened]
+
+jobs:
+  restrict-pr-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR source branch
+        if: github.event.pull_request.head.ref != 'develop'
+        run: |
+          echo "Pull requests to the main branch can only be created from the develop branch."
+          exit 1
